@@ -1,0 +1,30 @@
+{
+  "name": "scrapenews",
+  "version": "1.0.0",
+  "description": "get and store news in Mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/germangib/ScrapeNews.git"
+  },
+  "author": "German Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/germangib/ScrapeNews/issues"
+  },
+  "homepage": "https://github.com/germangib/ScrapeNews#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "keywords": []
+}
