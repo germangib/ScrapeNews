@@ -1,20 +1,9 @@
 $(document).ready(function(){
     var commentDivSelector;
-    // Get all the news:  
-    //console.log("app.js... on load");
-    // 1. scrap all articles from the NY Times
-    // 1.1 this procedure will inster the information into the db
-    $.get('/app/scrape/scrapeAll', function(data){
-       // $("#articles").append("<h2> ARTICLES </h2>");
-    });
-
-    // 2. get the articles from the database to display it
-    getAllArticles();
-
     
 });
 
-//Scrap again if click on Jumbotron
+//Scrap if user clicks on Jumbotron
 $(document).on('click', '.jumbotron', function(){
     // 1. scrap all articles from the NY Times
     // 1.1 this procedure will inster the information into the db
@@ -68,16 +57,16 @@ function printArticles(articles){
         var summaryRow = $('<div class="text-center">');
         summaryRow.text(articles[i].summary);
 
-        var commentBtn = $('<button class="btn text-white comment mt-5" id="' + articles[i]._id + '" disabled>');
-        commentBtn.text('Write your comments below...');
+        var commentBtn = $('<button class="btn text-white comment mt-5" id="' + articles[i]._id + '">'); //disabled was comment
+        commentBtn.text('Write another comment about this article...');
         
         var inputDiv = $('<div class="commentDiv" id="input' + articles[i]._id + '">');
-        var input = $('<textarea class="form-control mt-12" id="inputComment'+ articles[i]._id+ '" >');
+        var input = $('<textarea class="form-control mt-12" id="inputComment'+ articles[i]._id+ '" >'); 
         var submitInput = $('<button class="btn submitComment mt-5" key="'+articles[i]._id+ '">');
         submitInput.text('Submit your comment');
         var divPostedCom = $('<div class="border-top pt-3 mt-4" id="postComment' + articles[i]._id + '" >');
 
-        $.get('/app/comments/', function(articles){
+        $.get('/app/comments/my-comments', function(articles){
             for(var i=0; i < articles.length; i++){
                 for(var j=0; j < articles.comments.length; j++){
                     if(articles[i]._id === articles.comments[j]){
@@ -99,6 +88,28 @@ function printArticles(articles){
         $("#articles").append(headRow);
 
     } // End For
+
+    // On Click - 'comment' button
+    $(document).on('click', '.comment', function(){
+        commentDivSelector = '#input' + this.id;
+        var selector = '#' + $(this).attr('id');
+        $(commentDivSelector).show();
+        $(selector).hide();
+    });
+
+    // On click - 'delete comment' button 
+    $(document).on('click', '.deleteBtn', function(){
+        var deleteSelector = $(this).attr('id');
+        var deleteCommentBox = '#deleteBox' + $(this).attr('id');
+        console.log(deleteCommentBox)
+        
+        $.ajax({
+            type: "DELETE",
+            url: "/app/comments/delete/" + deleteSelector
+        });
+
+        $(deleteCommentBox).remove();
+    });
     
     console.log("end of Print Articles...");
 }
