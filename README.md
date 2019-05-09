@@ -19,4 +19,4 @@ Web app that allow users to load, view and leave comments on the latest news.
 ## See the Heroku page
 
 Check the deployed project at:
-
+https://sleepy-beyond-15604.herokuapp.com/ 
